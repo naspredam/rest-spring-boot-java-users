@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 import java.util.Optional;
 
+import static com.fasterxml.jackson.databind.PropertyNamingStrategy.SNAKE_CASE;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -43,7 +44,7 @@ class UserControllerTest {
 
         mvc.perform(get("/users"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("length()", is(1)))
+                .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("[0].id", is(10)))
                 .andExpect(jsonPath("[0].first_name", is("Bilbo")))
                 .andExpect(jsonPath("[0].last_name", is("Baggins")))
@@ -71,7 +72,6 @@ class UserControllerTest {
 
     @Test
     public void shouldCreateNewUserData_ToTheRepository() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
         UserData requestUserData = UserData.builder()
                 .firstName("Frodo")
                 .lastName("Baggins")
@@ -86,14 +86,17 @@ class UserControllerTest {
         Mockito.when(userRepository.save(requestUserData))
                 .thenReturn(savedUserData);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setPropertyNamingStrategy(SNAKE_CASE);
+    
         mvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(requestUserData)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id", is(11)))
-                .andExpect(jsonPath("first_name", is("Bilbo")))
+                .andExpect(jsonPath("first_name", is("Frodo")))
                 .andExpect(jsonPath("last_name", is("Baggins")))
-                .andExpect(jsonPath("phone", is("+44 9999-99999")));
+                .andExpect(jsonPath("phone", is("+44 7777-7777")));
     }
 
     @Test
