@@ -1,11 +1,11 @@
-# Rest api in Java for users
+# Simple REST api in Java (String-boot / not reactive)
 
 This project has as objective to have a rest api build on:
 
 - Gradle
-- Java 11
+- Java 14
 - Spring boot 2.3.0-RELEASE
-- MySQL
+- MySQL (8.0.20)
 
 Using standard rest/web spring-boot strategy, non-reactive.
  
