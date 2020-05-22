@@ -1,3 +1,12 @@
 spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
+  jpa:
+    hibernate:
+      ddl-auto: none
+      use-new-id-generator-mappings: false
+    generate-ddl: off
+  datasource:
+    url: jdbc:mysql://db:3306/app?autoReconnect=true&useSSL=false
+    username: root
+    password: rootpasswd

@@ -2,9 +2,7 @@ package com.service.rest.users;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -16,6 +14,7 @@ import javax.persistence.Table;
 public class UserData {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     private String firstName;
