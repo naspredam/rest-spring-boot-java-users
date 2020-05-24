@@ -36,6 +36,8 @@ To run the application the `Makefile` has been set to:
 
 - start: to start the application in docker
 - stop: stop and drop the containers
+- restart: does stop and start
+- logs: display the logs of the deployed docker containers
 
 So, the `start` action will do:
 
