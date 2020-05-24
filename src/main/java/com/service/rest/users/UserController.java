@@ -3,7 +3,6 @@ package com.service.rest.users;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -16,7 +15,7 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserData> getAllUsers() {
+    public Iterable<UserData> getAllUsers() {
         return userRepository.findAll();
     }
 
