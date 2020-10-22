@@ -37,6 +37,24 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
+    public void shouldReturnBilboBaggings_WhenUserInformationIsPersisted() throws Exception {
+        UserData frodoBaggingsUser = UserData.builder()
+                .firstName("Frodo")
+                .lastName("Baggins")
+                .phone("+blah")
+                .build();
+        entityManager.persist(frodoBaggingsUser);
+
+        mvc.perform(get("/users"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("[0].id", is(frodoBaggingsUser.getId().intValue())))
+                .andExpect(jsonPath("[0].first_name", is("Frodo")))
+                .andExpect(jsonPath("[0].last_name", is("Baggins")))
+                .andExpect(jsonPath("[0].phone", is("+blah")));
+    }
+
+    @Test
     public void shouldReturnNonEmptyUserList_WhenUserArePersisted() throws Exception {
         UserData userData1 = UserData.builder()
                 .firstName(FAKER.name().firstName())
