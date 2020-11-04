@@ -1,12 +1,12 @@
-FROM openjdk:14.0.1 AS builder
+FROM openjdk:15.0.1-jdk AS builder
 
-ADD . /source
+COPY . /source
 
 WORKDIR /source
 
 RUN ./gradlew build
 
-FROM openjdk:14.0.1-slim-buster
+FROM openjdk:15.0.1-slim-buster
 
 RUN adduser --disabled-password --gecos '' spring
 
